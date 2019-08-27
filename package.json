@@ -1,0 +1,29 @@
+{
+  "name": "requestor",
+  "version": "1.0.0",
+  "description": "A http client for JavaScript",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/preset-env": "^7.5.5",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "authors": [
+    {
+      "name": "Patrick FARRUGIA",
+      "email": "farrugiapatrick@free.fr"
+    }
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ]
+  }
+}
