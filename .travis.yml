@@ -1,0 +1,19 @@
+branches:
+  only:
+    - master
+
+git:
+  depth: 10
+
+sudo: false
+
+cache:
+  directories:
+    - "node_modules"
+
+language: node_js
+
+before_script:
+  - npm install
+
+script: npm run test
