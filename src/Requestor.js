@@ -1,10 +1,6 @@
 import Http from './Http';
 
 export default class Requestor {
-    constructor() {
-        Requestor.csrfToken = '';
-    }
-
     /**
      * @param baseUrl
      * @returns {Http}
@@ -14,8 +10,8 @@ export default class Requestor {
     }
 
     static getCsrfToken() {
-        if (Requestor.csrfToken === '') {
-            Requestor.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+        if (Requestor.csrfToken === undefined) {
+            Requestor.csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         }
         return Requestor.csrfToken;
     }
