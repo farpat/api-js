@@ -1,5 +1,5 @@
 {
-  "name": "requestor",
+  "name": "@farpat/api",
   "version": "1.0.0",
   "description": "A http client for JavaScript",
   "main": "index.js",
@@ -12,12 +12,6 @@
   "scripts": {
     "test": "jest"
   },
-  "authors": [
-    {
-      "name": "Patrick FARRUGIA",
-      "email": "farrugiapatrick@free.fr"
-    }
-  ],
   "jest": {
     "moduleFileExtensions": [
       "js"
@@ -25,5 +19,18 @@
     "moduleDirectories": [
       "node_modules"
     ]
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/farpat/api-js.git"
+  },
+  "author": "farpat13",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/farpat/api-js/issues"
+  },
+  "homepage": "https://github.com/farpat/api-js#readme"
 }
