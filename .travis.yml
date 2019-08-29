@@ -2,9 +2,6 @@ branches:
   only:
     - master
 
-git:
-  depth: 10
-
 sudo: false
 
 cache:
