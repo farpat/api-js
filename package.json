@@ -27,7 +27,7 @@
     "type": "git",
     "url": "git+https://github.com/farpat/api-js.git"
   },
-  "author": "farpat13",
+  "author": "farpat",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/farpat/api-js/issues"
