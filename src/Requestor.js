@@ -17,7 +17,6 @@ export default class Requestor {
         if (Requestor.csrfToken === '') {
             Requestor.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
         }
-
         return Requestor.csrfToken;
     }
 }
