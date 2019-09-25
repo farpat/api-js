@@ -5,19 +5,16 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "@babel/preset-env": "^7.5.5",
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@types/jest": "^24.0.18",
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0",
+    "jest-fetch-mock": "^2.1.2",
     "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
     "test": "jest"
-  },
-  "jest": {
-    "verbose": false
-  },
-  "directories": {
-    "test": "tests"
   },
   "repository": {
     "type": "git",
