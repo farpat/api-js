@@ -1,14 +1,8 @@
+import Requestor from "./Requestor";
+
 export default class Http {
     constructor(baseUrl) {
         this.baseUrl = baseUrl;
-    }
-
-    static getCsrfToken() {
-        if (Http.csrfToken === undefined) {
-            Http.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-        }
-
-        return Http.csrfToken;
     }
 
     async fetch(endPoint, data, headers, config) {
@@ -19,12 +13,12 @@ export default class Http {
             'Content-Type': 'application/json'
         };
 
-        const token = Http.getCsrfToken();
+        const token = Requestor.getCsrfToken();
         if (token) {
             config.headers['X-CSRF-TOKEN'] = token;
         }
 
-        if (data !== null) {
+        if (JSON.stringify(data) !== '{}') {
             if (config.method === 'GET' || config.method === 'DELETE') {
                 endPoint += '?' + this.buildQueryString(data);
             } else {
@@ -53,27 +47,67 @@ export default class Http {
         return searchParameters.toString();
     }
 
-    post(endPoint, data = null, headers = {}, config = {}) {
+    /**
+     * 
+     * @param {String} endPoint 
+     * @param {Object} data 
+     * @param {Object} headers 
+     * @param {Object} config 
+     * @returns {Promise<Any>}
+     */
+    post(endPoint, data = {}, headers = {}, config = {}) {
         config.method = 'POST';
         return this.fetch(endPoint, data, headers, config);
     }
 
-    patch(endPoint, data = null, headers = {}, config = {}) {
+    /**
+     * 
+     * @param {String} endPoint 
+     * @param {Object} data 
+     * @param {Object} headers 
+     * @param {Object} config 
+     * @returns {Promise<Any>}
+     */
+    patch(endPoint, data = {}, headers = {}, config = {}) {
         config.method = 'PATCH';
         return this.fetch(endPoint, data, headers, config);
     }
 
-    put(endPoint, data = null, headers = {}, config = {}) {
+    /**
+     * 
+     * @param {String} endPoint 
+     * @param {Object} data 
+     * @param {Object} headers 
+     * @param {Object} config 
+     * @returns {Promise<Any>}
+     */
+    put(endPoint, data = {}, headers = {}, config = {}) {
         config.method = 'PUT';
         return this.fetch(endPoint, data, headers, config);
     }
 
-    get(endPoint, data = null, headers = {}, config = {}) {
+    /**
+     * 
+     * @param {String} endPoint 
+     * @param {Object} data 
+     * @param {Object} headers 
+     * @param {Object} config 
+     * @returns {Promise<Any>}
+     */
+    get(endPoint, data = {}, headers = {}, config = {}) {
         config.method = 'GET';
         return this.fetch(endPoint, data, headers, config);
     }
 
-    delete(endPoint, data = null, headers = {}, config = {}) {
+    /**
+     * 
+     * @param {String} endPoint 
+     * @param {Object} data 
+     * @param {Object} headers 
+     * @param {Object} config 
+     * @returns {Promise<Any>}
+     */
+    delete(endPoint, data = {}, headers = {}, config = {}) {
         config.method = 'DELETE';
         return this.fetch(endPoint, data, headers, config);
     }

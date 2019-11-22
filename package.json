@@ -1,6 +1,6 @@
 {
   "name": "@farpat/api",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A http client for JavaScript",
   "main": "index.js",
   "dependencies": {},

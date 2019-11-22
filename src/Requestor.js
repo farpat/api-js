@@ -9,6 +9,9 @@ export default class Requestor {
         return new Http(baseUrl);
     }
 
+    /**
+     * @returns {String|null}
+     */
     static getCsrfToken() {
         if (Requestor.csrfToken === undefined) {
             Requestor.csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
