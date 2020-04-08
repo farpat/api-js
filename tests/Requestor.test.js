@@ -11,14 +11,24 @@ describe('test', function () {
     expect(Requestor.newRequest()).toBeInstanceOf(Http);
   })
 
-  it('get token', function () {
+  it('get token in page without token', function () {
+    Requestor.csrfToken = undefined;
+    document.head.innerHTML = `<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title></head>`;
+    expect(Requestor.getCsrfToken()).toBe(null);
+  });
+  
+  it('get token in page with token', function () {
+    Requestor.csrfToken = undefined;
     document.head.innerHTML = `<head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="token">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>`;
+    <title>Document</title></head>`;
     expect(Requestor.getCsrfToken()).toBe('token');
   });
 
