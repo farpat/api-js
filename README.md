@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/farpat/api-js.svg?branch=master)](https://travis-ci.org/farpat/api-js)
 
+**Warning: This library is only used in front**
+
 # Installation
 `npm i @farpat/api`
 
@@ -11,7 +13,7 @@ You can use verb " POST, GET PUT, PATCH and DELETE ". Here are some examples of 
 ```javascript
 import Requestor from "@farpat/api";
 
-http = Requestor.newRequest();
+http = Requestor.newRequest('base-url or null');
 
 http.get('/path/to/resource')
     .then()
