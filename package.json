@@ -1,15 +1,15 @@
 {
   "name": "@farpat/api",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A http client for JavaScript",
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/preset-env": "^7.6.2",
-    "@types/jest": "^24.0.18",
-    "babel-jest": "^24.9.0",
-    "jest": "^24.9.0",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@types/jest": "^25.2.1",
+    "babel-jest": "^25.5.1",
+    "jest": "^25.5.4",
     "whatwg-fetch": "^3.0.0"
   },
   "scripts": {

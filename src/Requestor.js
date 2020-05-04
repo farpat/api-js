@@ -1,4 +1,4 @@
-import Http from './Http';
+import Http from './Http'
 
 export default class Requestor {
     /**
@@ -6,7 +6,7 @@ export default class Requestor {
      * @returns {Http}
      */
     static newRequest(baseUrl = '') {
-        return new Http(baseUrl);
+        return new Http(baseUrl)
     }
 
     /**
@@ -14,9 +14,9 @@ export default class Requestor {
      */
     static getCsrfToken() {
         if (Requestor.csrfToken === undefined) {
-            const csrfTokenElement = document.querySelector('meta[name="csrf-token"]');
-            Requestor.csrfToken = csrfTokenElement ? csrfTokenElement.getAttribute('content') : null;
+            const csrfTokenElement = document.querySelector('meta[name="csrf-token"]')
+            Requestor.csrfToken = csrfTokenElement ? csrfTokenElement.getAttribute('content') : null
         }
-        return Requestor.csrfToken;
+        return Requestor.csrfToken
     }
 }
