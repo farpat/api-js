@@ -12,7 +12,7 @@ You can use verb " POST, GET PUT, PATCH and DELETE ". Here are some examples of 
 ```javascript
 import Requestor from "@farpat/api";
 
-const baseUrl = 'http://my-domain.com' // or null
+const baseUrl = 'http://my-domain.com' // or null (the url is equals to the current domain)
 Requestor.newRequest(baseUrl).get('/path/to/resource', {query_string:'value'}, {header:'value'})
   .then()
   .catch()

@@ -2,10 +2,10 @@ import Requestor from './Requestor'
 
 export default class Http {
   constructor (baseUrl) {
-    if (baseUrl.slice(-1) === '/') {
-      this.baseUrl = baseUrl
+    if (baseUrl !== '') {
+      this.baseUrl = baseUrl + (baseUrl.slice(-1) === '/' ? '' : '/')
     } else {
-      this.baseUrl = baseUrl + '/'
+      this.baseUrl = ''
     }
   }
 
@@ -31,7 +31,7 @@ export default class Http {
       }
     }
 
-    const url = this.baseUrl + endPoint
+    const url = this.baseUrl + (endPoint.slice(0, 1) === '/' ? endPoint.slice(1) : endPoint)
     const response = await window.fetch(url, config)
 
     if (response.ok) {

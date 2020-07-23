@@ -1,6 +1,6 @@
 const baseUrl = 'https://jsonplaceholder.typicode.com'
 
-import Requestor from '../index'
+import Requestor from '../src/Requestor'
 import Http from '../src/Http'
 import 'whatwg-fetch'
 
@@ -34,8 +34,8 @@ describe('test', function () {
 
   it('fetch good get request', async function () {
     const request = Requestor.newRequest(baseUrl)
-    const data = await request.get('/posts/1')
-    expect(data.id).toBe(1)
+    const data = await request.get('/posts/33')
+    expect(data.id).toBe(33)
   })
 
   it('fetch wrong request', async function () {
@@ -47,23 +47,23 @@ describe('test', function () {
     const request = Requestor.newRequest(baseUrl)
     const data = await request.post('/posts', {
       userId: 1,
-      title : 'title',
+      title : 'title added',
       body  : 'body'
     })
 
-    expect(data.title).toBe('title')
+    expect(data.title).toBe('title added')
   })
 
   it('fetch good put request', async function () {
     const request = Requestor.newRequest(baseUrl)
-    const data = await request.put('/posts/1', {
+    const data = await request.put('/posts/33', {
       userId: 1,
-      title : 'title',
+      title : 'title updated',
       body  : 'body'
     })
 
-    expect(data.title).toBe('title')
-    expect(data.id).toBe(1)
+    expect(data.title).toBe('title updated')
+    expect(data.id).toBe(33)
   })
 
   it('fetch good delete request', async function () {

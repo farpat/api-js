@@ -1,8 +1,8 @@
 {
     "name": "@farpat/api",
-    "version": "1.0.12",
+    "version": "1.0.13",
     "description": "A http client for JavaScript",
-    "main": "index.js",
+    "main": "src/Requestor.js",
     "dependencies": {},
     "devDependencies": {
         "@babel/core": "^7.10.5",
