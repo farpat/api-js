@@ -53,7 +53,7 @@ const buildQueryString = function (data) {
   return searchParameters.toString()
 }
 
-export default class HttpRequest {
+class HttpRequest {
   /**
    *
    * @param {String} baseUrl
@@ -148,3 +148,5 @@ export default class HttpRequest {
     return fetch.call(this, endPoint, data, headers, config)
   }
 }
+
+export default HttpRequest
