@@ -1,14 +1,14 @@
 const baseUrl = 'https://jsonplaceholder.typicode.com'
 
-import Requestor from '../src/Requestor'
-import Http from '../src/Http'
+import Requestor from '../'
+import HttpRequest from '../src/HttpRequest'
 import 'whatwg-fetch'
 
 console.error = function () {} //to hide fail in code
 
 describe('test', function () {
   it('get newRequest()', function () {
-    expect(Requestor.newRequest()).toBeInstanceOf(Http)
+    expect(Requestor.newRequest()).toBeInstanceOf(HttpRequest)
   })
 
   it('get token in page without token', function () {

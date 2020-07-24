@@ -1,6 +1,6 @@
 import Requestor from './Requestor'
 
-export default class Http {
+export default class HttpRequest {
   constructor (baseUrl) {
     if (baseUrl !== '') {
       this.baseUrl = baseUrl + (baseUrl.slice(-1) === '/' ? '' : '/')
