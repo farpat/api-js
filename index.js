@@ -35,7 +35,7 @@ async function jsonFetch (url, data, headers, config) {
   if (response.ok) {
     return response.json()
   } else {
-    throw response.json()
+    throw await response.json()
   }
 }
 

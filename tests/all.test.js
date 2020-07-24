@@ -1,8 +1,7 @@
 import 'whatwg-fetch'
-import { getCsrfToken, jsonGet, jsonDelete, jsonPatch, jsonPost, jsonPut } from '../index'
+import { getCsrfToken, jsonDelete, jsonGet, jsonPatch, jsonPost, jsonPut } from '../index'
 
 const baseUrl = 'https://jsonplaceholder.typicode.com'
-console.error = function () {} //to hide fail in code
 
 describe('test', function () {
   it('get token in page with token', function () {
@@ -35,6 +34,20 @@ describe('test', function () {
 
   it('fetch wrong request', async function () {
     await expect(jsonGet(`${baseUrl}.fake/posts/1`)).rejects.toThrow(Error)
+  })
+
+  it('fetch bad post request', async function () {
+    expect.assertions(1)
+
+    try {
+      await jsonPost(`${baseUrl}/posts.fake`, {
+        userId: 1,
+        title : 'title added',
+        body  : 'body'
+      })
+    } catch (e) {
+      expect(e).toEqual({})
+    }
   })
 
   it('fetch good post request', async function () {
