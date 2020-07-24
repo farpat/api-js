@@ -62,6 +62,11 @@ export default class HttpRequest {
     }
   }
 
+  /**
+   *
+   * @param baseUrl
+   * @returns {HttpRequest}
+   */
   static new (baseUrl = '') {
     return new HttpRequest(baseUrl)
   }
