@@ -1,5 +1,3 @@
-import Requestor from './Requestor'
-
 export default class HttpRequest {
   constructor (baseUrl) {
     if (baseUrl !== '') {
@@ -7,6 +5,22 @@ export default class HttpRequest {
     } else {
       this.baseUrl = ''
     }
+  }
+
+  static new (baseUrl = '') {
+    return new HttpRequest(baseUrl)
+  }
+
+  /**
+   * @param {String} metaKey
+   * @returns {String|null}
+   */
+  static getCsrfToken (metaKey = 'csrf-token') {
+    if (HttpRequest.csrfToken === undefined) {
+      const csrfTokenElement = document.querySelector(`meta[name="${metaKey}"]`)
+      HttpRequest.csrfToken = csrfTokenElement ? csrfTokenElement.getAttribute('content') : null
+    }
+    return HttpRequest.csrfToken
   }
 
   async fetch (endPoint, data, headers, config) {
@@ -18,7 +32,7 @@ export default class HttpRequest {
       'Accept'          : 'application/json'
     }
 
-    const token = Requestor.getCsrfToken()
+    const token = HttpRequest.getCsrfToken()
     if (token) {
       config.headers['X-CSRF-TOKEN'] = token
     }
