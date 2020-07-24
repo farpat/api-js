@@ -1,12 +1,14 @@
+window._csrfToken = undefined
+
 /**
  *
- * @param {String} endPoint
+ * @param {String} url
  * @param {Object} data
  * @param {Object} headers
  * @param {Object} config
  * @returns {Promise<Any>}
  */
-const fetch = async function (endPoint, data, headers, config) {
+async function jsonFetch (url, data, headers, config) {
   config.credentials = 'same-origin'
   config.headers = {
     ...headers,
@@ -15,20 +17,19 @@ const fetch = async function (endPoint, data, headers, config) {
     'Accept'          : 'application/json'
   }
 
-  const token = HttpRequest.getCsrfToken()
+  const token = getCsrfToken()
   if (token) {
     config.headers['X-CSRF-TOKEN'] = token
   }
 
   if (JSON.stringify(data) !== '{}') {
     if (config.method === 'GET' || config.method === 'DELETE') {
-      endPoint += '?' + buildQueryString(data)
+      url += '?' + buildQueryString(data)
     } else {
       config.body = JSON.stringify(data)
     }
   }
 
-  const url = this.baseUrl + (endPoint.slice(0, 1) === '/' ? endPoint.slice(1) : endPoint)
   const response = await window.fetch(url, config)
 
   if (response.ok) {
@@ -43,7 +44,7 @@ const fetch = async function (endPoint, data, headers, config) {
  * @param {Object} data
  * @returns {string}
  */
-const buildQueryString = function (data) {
+function buildQueryString (data) {
   const searchParameters = new URLSearchParams()
 
   Object.keys(data).forEach(function (parameterName) {
@@ -53,100 +54,79 @@ const buildQueryString = function (data) {
   return searchParameters.toString()
 }
 
-class HttpRequest {
-  /**
-   *
-   * @param {String} baseUrl
-   */
-  constructor (baseUrl) {
-    this.baseUrl = baseUrl !== '' ? baseUrl + (baseUrl.slice(-1) === '/' ? '' : '/') : ''
+/**
+ * @param {String} metaKey
+ * @returns {String|null}
+ */
+export function getCsrfToken (metaKey = 'csrf-token') {
+  if (window._csrfToken === undefined) {
+    const csrfTokenElement = document.querySelector(`meta[name="${metaKey}"]`)
+    window._csrfToken = csrfTokenElement ? csrfTokenElement.getAttribute('content') : null
   }
-
-  /**
-   *
-   * @param baseUrl
-   * @returns {HttpRequest}
-   */
-  static new (baseUrl = '') {
-    return new HttpRequest(baseUrl)
-  }
-
-  /**
-   * @param {String} metaKey
-   * @returns {String|null}
-   */
-  static getCsrfToken (metaKey = 'csrf-token') {
-    if (HttpRequest.csrfToken === undefined) {
-      const csrfTokenElement = document.querySelector(`meta[name="${metaKey}"]`)
-      HttpRequest.csrfToken = csrfTokenElement ? csrfTokenElement.getAttribute('content') : null
-    }
-    return HttpRequest.csrfToken
-  }
-
-  /**
-   *
-   * @param {String} endPoint
-   * @param {Object} data
-   * @param {Object} headers
-   * @param {Object} config
-   * @returns {Promise<Any>}
-   */
-  post (endPoint, data = {}, headers = {}, config = {}) {
-    config.method = 'POST'
-    return fetch.call(this, endPoint, data, headers, config)
-  }
-
-  /**
-   *
-   * @param {String} endPoint
-   * @param {Object} data
-   * @param {Object} headers
-   * @param {Object} config
-   * @returns {Promise<Any>}
-   */
-  patch (endPoint, data = {}, headers = {}, config = {}) {
-    config.method = 'PATCH'
-    return fetch.call(this, endPoint, data, headers, config)
-  }
-
-  /**
-   *
-   * @param {String} endPoint
-   * @param {Object} data
-   * @param {Object} headers
-   * @param {Object} config
-   * @returns {Promise<Any>}
-   */
-  put (endPoint, data = {}, headers = {}, config = {}) {
-    config.method = 'PUT'
-    return fetch.call(this, endPoint, data, headers, config)
-  }
-
-  /**
-   *
-   * @param {String} endPoint
-   * @param {Object} data
-   * @param {Object} headers
-   * @param {Object} config
-   * @returns {Promise<Any>}
-   */
-  get (endPoint, data = {}, headers = {}, config = {}) {
-    config.method = 'GET'
-    return fetch.call(this, endPoint, data, headers, config)
-  }
-
-  /**
-   *
-   * @param {String} endPoint
-   * @param {Object} data
-   * @param {Object} headers
-   * @param {Object} config
-   * @returns {Promise<Any>}
-   */
-  delete (endPoint, data = {}, headers = {}, config = {}) {
-    config.method = 'DELETE'
-    return fetch.call(this, endPoint, data, headers, config)
-  }
+  return window._csrfToken
 }
 
-export default HttpRequest
+/**
+ *
+ * @param {String} endPoint
+ * @param {Object} data
+ * @param {Object} headers
+ * @param {Object} config
+ * @returns {Promise<Any>}
+ */
+export function jsonPost (endPoint, data = {}, headers = {}, config = {}) {
+  config.method = 'POST'
+  return jsonFetch(endPoint, data, headers, config)
+}
+
+/**
+ *
+ * @param {String} endPoint
+ * @param {Object} data
+ * @param {Object} headers
+ * @param {Object} config
+ * @returns {Promise<Any>}
+ */
+export function jsonPatch (endPoint, data = {}, headers = {}, config = {}) {
+  config.method = 'PATCH'
+  return jsonFetch(endPoint, data, headers, config)
+}
+
+/**
+ *
+ * @param {String} endPoint
+ * @param {Object} data
+ * @param {Object} headers
+ * @param {Object} config
+ * @returns {Promise<Any>}
+ */
+export function jsonPut (endPoint, data = {}, headers = {}, config = {}) {
+  config.method = 'PUT'
+  return jsonFetch(endPoint, data, headers, config)
+}
+
+/**
+ *
+ * @param {String} endPoint
+ * @param {Object} data
+ * @param {Object} headers
+ * @param {Object} config
+ * @returns {Promise<Any>}
+ */
+export function jsonGet (endPoint, data = {}, headers = {}, config = {}) {
+  config.method = 'GET'
+  return jsonFetch(endPoint, data, headers, config)
+}
+
+/**
+ *
+ * @param {String} endPoint
+ * @param {Object} data
+ * @param {Object} headers
+ * @param {Object} config
+ * @returns {Promise<Any>}
+ */
+export function jsonDelete (endPoint, data = {}, headers = {}, config = {}) {
+  config.method = 'DELETE'
+  return jsonFetch(endPoint, data, headers, config)
+}
