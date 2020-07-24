@@ -54,6 +54,10 @@ const buildQueryString = function (data) {
 }
 
 export default class HttpRequest {
+  /**
+   *
+   * @param {String} baseUrl
+   */
   constructor (baseUrl) {
     if (baseUrl !== '') {
       this.baseUrl = baseUrl + (baseUrl.slice(-1) === '/' ? '' : '/')

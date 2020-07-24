@@ -1,6 +1,6 @@
 const baseUrl = 'https://jsonplaceholder.typicode.com'
 
-import HttpRequest from '../src/HttpRequest'
+import HttpRequest from '../'
 import 'whatwg-fetch'
 
 console.error = function () {} //to hide fail in code
@@ -59,6 +59,17 @@ describe('test', function () {
       userId: 1,
       title : 'title updated',
       body  : 'body'
+    })
+
+    expect(data.title).toBe('title updated')
+    expect(data.id).toBe(33)
+  })
+
+
+  it('fetch good patch request', async function () {
+    const request = HttpRequest.new(baseUrl)
+    const data = await request.patch('/posts/33', {
+      title : 'title updated',
     })
 
     expect(data.title).toBe('title updated')
