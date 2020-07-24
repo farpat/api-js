@@ -59,11 +59,7 @@ export default class HttpRequest {
    * @param {String} baseUrl
    */
   constructor (baseUrl) {
-    if (baseUrl !== '') {
-      this.baseUrl = baseUrl + (baseUrl.slice(-1) === '/' ? '' : '/')
-    } else {
-      this.baseUrl = ''
-    }
+    this.baseUrl = baseUrl !== '' ? baseUrl + (baseUrl.slice(-1) === '/' ? '' : '/') : ''
   }
 
   /**
