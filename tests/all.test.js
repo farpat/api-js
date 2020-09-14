@@ -57,7 +57,20 @@ describe('test', function () {
       body  : 'body'
     })
 
+    console.log(data)
+
     expect(data.title).toBe('title added')
+  })
+
+  it('fetch good post request with FormData', async function () {
+    const formData = new FormData
+    formData.append('userId', 1)
+    formData.append('title', 'title added')
+    formData.append('body', 'body')
+
+    const data = await jsonPost(`${baseUrl}/posts`, formData)
+
+    expect(data.id).toBe(101)
   })
 
   it('fetch good put request', async function () {

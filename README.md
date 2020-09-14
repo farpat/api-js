@@ -7,19 +7,26 @@
 
 
 # Use
-You can use verb " POST, GET PUT, PATCH and DELETE ". Here are some examples of use :
+You can use verb " GET, POST, PUT, PATCH and DELETE ". Here are some examples of use :
 
 ```javascript
-import HttpRequest from "@farpat/api";
+import {jsonGet, jsonPost} from "@farpat/api";
 
-const baseUrl = 'http://my-domain.com' // or null (the url is equals to the current domain)
-HttpRequest.new(baseUrl).get('/path/to/resource', {query_string:'value'}, {header:'value'})
+jsonGet(
+  '/path/to/resource', 
+  {query_string:'value'},
+  {header:'value'}
+)
   .then()
   .catch()
 
-HttpRequest.new().post('/path/to/resource', {key: 'value'}, {header: 'value'})
+jsonPost(
+  '/path/to/resource', 
+  {key: 'value'}, //or FormData 
+  {header: 'value'}
+)
   .then()
   .catch()
 
-// and " post, put, patch, delete " verbs;
+// and " put, patch, delete " verbs;
 ```

@@ -3,7 +3,7 @@ window._csrfToken = undefined
 /**
  *
  * @param {String} url
- * @param {Object} data
+ * @param {Object|FormData} data
  * @param {Object} headers
  * @param {Object} config
  * @returns {Promise<Any>}
@@ -22,7 +22,10 @@ async function jsonFetch (url, data, headers, config) {
     config.headers['X-CSRF-TOKEN'] = token
   }
 
-  if (JSON.stringify(data) !== '{}') {
+  if (data instanceof FormData) {
+    config.body = data
+    delete config.headers['Content-Type']
+  } else if (Object.keys(data).length !== 0) {
     if (config.method === 'GET' || config.method === 'DELETE') {
       url += '?' + buildQueryString(data)
     } else {
@@ -58,7 +61,7 @@ function buildQueryString (data) {
  * @param {String} metaKey
  * @returns {String|null}
  */
-export function getCsrfToken (metaKey = 'csrf-token') {
+function getCsrfToken (metaKey = 'csrf-token') {
   if (window._csrfToken === undefined) {
     const csrfTokenElement = document.querySelector(`meta[name="${metaKey}"]`)
     window._csrfToken = csrfTokenElement ? csrfTokenElement.getAttribute('content') : null
@@ -68,65 +71,69 @@ export function getCsrfToken (metaKey = 'csrf-token') {
 
 /**
  *
- * @param {String} endPoint
+ * @param {String} url
  * @param {Object} data
  * @param {Object} headers
  * @param {Object} config
  * @returns {Promise<Any>}
  */
-export function jsonPost (endPoint, data = {}, headers = {}, config = {}) {
+function jsonPost (url, data = {}, headers = {}, config = {}) {
   config.method = 'POST'
-  return jsonFetch(endPoint, data, headers, config)
+  return jsonFetch(url, data, headers, config)
 }
 
 /**
  *
- * @param {String} endPoint
+ * @param {String} url
  * @param {Object} data
  * @param {Object} headers
  * @param {Object} config
  * @returns {Promise<Any>}
  */
-export function jsonPatch (endPoint, data = {}, headers = {}, config = {}) {
+function jsonPatch (url, data = {}, headers = {}, config = {}) {
   config.method = 'PATCH'
-  return jsonFetch(endPoint, data, headers, config)
+  return jsonFetch(url, data, headers, config)
 }
 
 /**
  *
- * @param {String} endPoint
+ * @param {String} url
  * @param {Object} data
  * @param {Object} headers
  * @param {Object} config
  * @returns {Promise<Any>}
  */
-export function jsonPut (endPoint, data = {}, headers = {}, config = {}) {
+function jsonPut (url, data = {}, headers = {}, config = {}) {
   config.method = 'PUT'
-  return jsonFetch(endPoint, data, headers, config)
+  return jsonFetch(url, data, headers, config)
 }
 
 /**
  *
- * @param {String} endPoint
+ * @param {String} url
  * @param {Object} data
  * @param {Object} headers
  * @param {Object} config
  * @returns {Promise<Any>}
  */
-export function jsonGet (endPoint, data = {}, headers = {}, config = {}) {
+function jsonGet (url, data = {}, headers = {}, config = {}) {
   config.method = 'GET'
-  return jsonFetch(endPoint, data, headers, config)
+  return jsonFetch(url, data, headers, config)
 }
 
 /**
  *
- * @param {String} endPoint
+ * @param {String} url
  * @param {Object} data
  * @param {Object} headers
  * @param {Object} config
  * @returns {Promise<Any>}
  */
-export function jsonDelete (endPoint, data = {}, headers = {}, config = {}) {
+function jsonDelete (url, data = {}, headers = {}, config = {}) {
   config.method = 'DELETE'
-  return jsonFetch(endPoint, data, headers, config)
+  return jsonFetch(url, data, headers, config)
+}
+
+export {
+  getCsrfToken, jsonPost, jsonPatch, jsonPut, jsonGet, jsonDelete
 }
